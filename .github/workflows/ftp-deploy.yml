@@ -22,4 +22,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./ # Carpeta raíz del repositorio
-        server-dir: / # Directorio en el servidor FTP
+        server-dir: public_html/projectci/ # Directorio en el servidor FTP
