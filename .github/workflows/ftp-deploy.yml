@@ -16,7 +16,7 @@ jobs:
 
     # 2. Configurar y subir archivos al servidor FTP
     - name: Deploy files to FTP server
-      uses: SamKirkland/FTP-Deploy-Action@v3
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.1
       with:
         server: ${{ secrets.FTP_HOST }}
         username: ${{ secrets.FTP_USERNAME }}
