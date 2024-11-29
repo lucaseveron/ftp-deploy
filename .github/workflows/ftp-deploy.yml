@@ -3,23 +3,24 @@ name: Deploy to FTP
 on:
   push:
     branches:
-      - main  # Cambia esto si quieres usar otra rama
+      - main  # Cambia "main" si usas otra rama.
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Clonar el repositorio
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # 1. Clonar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # 2. Configurar y subir archivos al servidor FTP
-    - name: Deploy files to FTP server
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.1
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./ # Carpeta raíz del repositorio
-        server-dir: public_html/projectci/ # Directorio en el servidor FTP
+      # 2. Subir archivos al servidor FTP
+      - name: Deploy files to FTP server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.1
+        with:
+          server: ${{ secrets.FTP_HOST }}       # Host FTP
+          username: ${{ secrets.FTP_USERNAME }} # Usuario FTP
+          password: ${{ secrets.FTP_PASSWORD }} # Contraseña FTP
+          local-dir: ./                         # Carpeta local para subir
+          server-dir: public_html/projectci/    # Carpeta remota en el servidor
+
