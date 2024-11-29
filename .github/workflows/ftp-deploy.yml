@@ -1,31 +1,34 @@
-name: Deploy to FTP
+name: Deploy to Hostinger
 
 on:
   push:
     branches:
-      - main  # Cambia "main" si usas otra rama.
+      - main
+      - staging
 
 jobs:
-  ftp-deploy:
+  deploy:
+    name: Deploy to Hostinger via SFTP
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clonar el repositorio
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Debug secrets
-        run: |
-          echo "Server: ${{ secrets.FTP_HOST }}"
-          echo "Username: ${{ secrets.FTP_USERNAME }}"
-    
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # 2. Subir archivos al servidor FTP
-      - name: Deploy files to FTP server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.1
-        with:
-          server: ${{ secrets.FTP_HOST }}       # Host FTP
-          username: ${{ secrets.FTP_USERNAME }} # Usuario FTP
-          password: ${{ secrets.FTP_PASSWORD }} # Contraseña FTP
-          local-dir: ./                         # Carpeta local para subir
-          server-dir: public_html/projectci/    # Carpeta remota en el servidor
+    - name: Install LFTP
+      run: sudo apt-get install -y lftp
+
+    - name: Deploy to Hostinger
+      env:
+        FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_PORT: ${{ secrets.FTP_PORT || '22' }}
+      run: |
+        lftp -c "
+        set ftp:ssl-allow yes;
+        open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER:$FTP_PORT;
+        mirror -R ./ public_html/projectci/;
+        bye;
+        "
 
