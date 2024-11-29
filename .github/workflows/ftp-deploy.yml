@@ -24,12 +24,6 @@ jobs:
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         FTP_PORT: ${{ secrets.FTP_PORT || '22' }}
-      run: |
-        lftp -d -c "
-        set ftp:ssl-allow yes;
-        open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER:$FTP_PORT;
-        mirror -R ./ public_html/projectci/;
-        bye;
-        "
+     
 
 
