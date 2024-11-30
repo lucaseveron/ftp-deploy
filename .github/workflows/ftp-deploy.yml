@@ -19,8 +19,11 @@ jobs:
         ftpServer: ${{ secrets.FTP_HOST }}
         ftpUsername: ${{ secrets.FTP_USERNAME }}
         ftpPassword: ${{ secrets.FTP_PASSWORD }}
+        protocol: ftps
         localDir: ./
         remoteDir: /public_html/projectci/
+
+       
 
 
      
