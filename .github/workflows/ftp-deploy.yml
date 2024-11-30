@@ -18,11 +18,17 @@ jobs:
     - name: Install FTP Client
       run: sudo apt-get install -y lftp
     - name: Push files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
+      uses: ercindedeoglu/ftp-transfer-action@v2
+  with:
+    host: ${{ secrets.FTP_HOST }}
+    user: ${{ secrets.FTP_USERNAME }}
+    password: ${{ secrets.FTP_PASSWORD }}
+    source: './local_directory/'
+    destination: '/public_html/'
+    forceSSL: true
+    options: "--delete --verbose"
+
+ 
 
 
 
