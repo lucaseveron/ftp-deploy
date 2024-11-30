@@ -13,8 +13,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Deploy files via FTP
-      uses: lukasgeiter/ftp-deploy-action@v1.0.0
+    - name: Upload images to site
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         ftpServer: ${{ secrets.FTP_HOST }}
         ftpUsername: ${{ secrets.FTP_USERNAME }}
