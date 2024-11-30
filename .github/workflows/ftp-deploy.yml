@@ -1,26 +1,19 @@
-name: Deploy to Hostinger FTP
-
-on:
-  push:
-    branches:
-      - main  # O cualquier rama que prefieras
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
-    runs-on: ubuntu-latest  # Puedes usar otra imagen si prefieres
-
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Upload files to Hostinger via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Usamos una versión reciente y estable
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files
+      uses: devcode/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.ftp_server }}
-        username: ${{ secrets.ftp_username }}
-        password: ${{ secrets.ftp_password }} # Contraseña FTP
-        server-dir: "./"  # Ruta de destino en el servidor
-        local-dir: "/public_html/projectci/"  # Copiará todo el contenido del repositorio
+        server: ftp.devcode.com.ar
+        username: u666073011.devops
+        password: ${{ secrets.ftp_password }}
 
 
 
