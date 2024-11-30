@@ -17,7 +17,16 @@ jobs:
     # Instala lftp para realizar la transferencia FTP
     - name: Install FTP Client
       run: sudo apt-get install -y lftp
+    - name: Push files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
 
+
+
+    
     
 
        
