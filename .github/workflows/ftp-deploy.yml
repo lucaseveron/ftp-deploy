@@ -13,15 +13,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Upload images to site
+    - name: Deploy files via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        ftpServer: ${{ secrets.FTP_HOST }}
-        ftpUsername: ${{ secrets.FTP_USERNAME }}
-        ftpPassword: ${{ secrets.FTP_PASSWORD }}
-        protocol: ftps
-        localDir: ./
-        remoteDir: /public_html/projectci/
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./
+        server-dir: /public_html/projectci/
+
 
        
 
