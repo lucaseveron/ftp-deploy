@@ -18,14 +18,7 @@ jobs:
     - name: Install FTP Client
       run: sudo apt-get install -y lftp
 
-    # Subir archivos al servidor FTP
-    - name: Deploy via FTP
-      env:
-        FTP_HOST: ${{ secrets.FTP_HOST }}
-        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      
-
+    
 
        
 
