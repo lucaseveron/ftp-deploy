@@ -1,26 +1,35 @@
-name: Deploy to Hostinger via FTP
+name: FTP Deploy to Hostinger
 
 on:
   push:
     branches:
-      - main # Cambia esta rama si es necesario
+      - main # Cambia a tu rama principal si es diferente
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    # Checkout del repositorio
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Deploy files via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_HOST }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
-        server-dir: /public_html/projectci/
+    # Instala lftp para realizar la transferencia FTP
+    - name: Install FTP Client
+      run: sudo apt-get install -y lftp
+
+    # Subir archivos al servidor FTP
+    - name: Deploy via FTP
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      run: |
+        lftp -c "
+        open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST;
+        mirror -R ./ public_html/projectci/;
+        bye
+        "
 
 
        
