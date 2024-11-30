@@ -16,9 +16,9 @@ jobs:
     - name: Upload files to Hostinger via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Usamos una versión reciente y estable
       with:
-        server: ${{ secrets.FTP_HOST }}       # Dirección del servidor FTP
-        username: ${{ secrets.FTP_USERNAME }} # Nombre de usuario FTP
-        password: ${{ secrets.FTP_PASSWORD }} # Contraseña FTP
+        server: ${{ secrets.ftp_server }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }} # Contraseña FTP
         server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor
         local-dir: "./"  # Copiará todo el contenido del repositorio
 
