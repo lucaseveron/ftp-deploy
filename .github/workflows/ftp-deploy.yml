@@ -3,25 +3,26 @@ name: 🚀 Deploy website on push
 on:
   push:
     branches:
-      - main  # O cualquier otra rama que prefieras
+      - main  # Cambia esta línea a la rama que prefieras
 
 jobs:
   web-deploy:
     name: 🎉 Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Se ejecuta en Ubuntu
 
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4  # Acción que obtiene el código más reciente
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+    - name: 📂 Sync files to Hostinger FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Acción de despliegue por FTP
       with:
-        server: ${{ secrets.FTP_HOST }}       # Dirección del servidor FTP
-        username: ${{ secrets.FTP_USERNAME }} # Nombre de usuario FTP
-        password: ${{ secrets.FTP_PASSWORD }} # Contraseña FTP
-        server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor Hostinger
-        local-dir: "./"  # Copiará todo el contenido del repositorio
+        server: ftp.devcode.com.ar # Reemplaza con la URL de tu servidor FTP en Hostinger
+        username: ${{ secrets.FTP_USERNAME }}  # Nombre de usuario FTP almacenado en secretos
+        password: ${{ secrets.FTP_PASSWORD }}  # Contraseña FTP almacenada en secretos
+        server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor
+        local-dir: "./"  # Subirá todo el contenido del repositorio al servidor
+
 
 
 
