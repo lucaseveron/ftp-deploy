@@ -1,19 +1,28 @@
-on: push
 name: 🚀 Deploy website on push
+
+on:
+  push:
+    branches:
+      - main  # O cualquier otra rama que prefieras
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
-    
+
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.devcode.com.ar
-        username: u666073011.devops
-        password: R@2xUGA4JS@GD^Xg
+        server: ${{ secrets.FTP_HOST }}       # Dirección del servidor FTP
+        username: ${{ secrets.FTP_USERNAME }} # Nombre de usuario FTP
+        password: ${{ secrets.FTP_PASSWORD }} # Contraseña FTP
+        server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor Hostinger
+        local-dir: "./"  # Copiará todo el contenido del repositorio
+
 
 
 
