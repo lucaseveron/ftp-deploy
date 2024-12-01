@@ -19,7 +19,7 @@ jobs:
       with:
         server: FTP_SERVER # Reemplaza con la URL de tu servidor FTP en Hostinger
         username: FTP_USERNAME # Nombre de usuario FTP almacenado en secretos
-        password:   # Contraseña FTP almacenada en secretos
+        password: FTP_PASSWORD # Contraseña FTP almacenada en secretos
         server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor
         local-dir: "./"  # Subirá todo el contenido del repositorio al servidor
 
