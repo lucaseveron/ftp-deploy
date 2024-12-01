@@ -13,17 +13,19 @@ jobs:
 
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v4  # Acción para obtener el código más reciente del repositorio
+      uses: actions/checkout@v4  # Obtiene el código más reciente del repositorio
 
     - name: 📂 Sync files to Hostinger FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Acción de despliegue por FTP
       with:
         server: ftp.devcode.com.ar  # Dirección de tu servidor FTP
-        username: ${{ secrets.FTP_USERNAME }}  # Nombre de usuario FTP almacenado en secretos
+        username: ${{ secrets.FTP_USERNAME }}  # Usuario FTP almacenado en secretos
         password: ${{ secrets.FTP_PASSWORD }}  # Contraseña FTP almacenada en secretos
         server-dir: |
           ${{ github.ref_name == 'main' && '/public_html/projectci/' || '/public_html/staging/' }}
-        local-dir: "./"  # Subir todo el contenido del repositorio al servidor
+        local-dir: "./"  # Subir todos los archivos desde la raíz del repositorio
+        dangerous-clean-slate: true  # Borra todos los archivos existentes en el servidor antes de subir los nuevos
+
 
 
 
