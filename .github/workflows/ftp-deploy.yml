@@ -17,7 +17,7 @@ jobs:
     - name: 📂 Sync files to Hostinger FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Acción de despliegue por FTP
       with:
-        server: ftp.devcode.com.ar # Reemplaza con la URL de tu servidor FTP en Hostinger
+        server: FTP_SERVER # Reemplaza con la URL de tu servidor FTP en Hostinger
         username: u666073011.devops # Nombre de usuario FTP almacenado en secretos
         password: R@2xUGA4JS@GD^Xg  # Contraseña FTP almacenada en secretos
         server-dir: "/public_html/projectci/"  # Ruta de destino en el servidor
