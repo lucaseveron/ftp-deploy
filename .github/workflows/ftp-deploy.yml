@@ -3,28 +3,34 @@ name: 🚀 Deploy website on push
 on:
   push:
     branches:
-      - main    # Ejecutar el pipeline en la rama main
-      - staging # Ejecutar el pipeline en la rama staging
+      - main
+      - staging
 
 jobs:
   web-deploy:
     name: 🎉 Deploy to FTP
-    runs-on: ubuntu-latest  # Se ejecuta en Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4  # Obtiene el código más reciente del repositorio
+    - name: 🚚 Checkout repository
+      uses: actions/checkout@v4
 
-    - name: 📂 Sync files to Hostinger FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5  # Acción de despliegue por FTP
+    - name: 📂 Deploy to Hostinger
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.devcode.com.ar  # Dirección de tu servidor FTP
-        username: ${{ secrets.FTP_USERNAME }}  # Usuario FTP almacenado en secretos
-        password: ${{ secrets.FTP_PASSWORD }}  # Contraseña FTP almacenada en secretos
+        server: ftp.devcode.com.ar
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
         server-dir: |
           ${{ github.ref_name == 'main' && '/public_html/projectci/' || '/public_html/staging/' }}
-        local-dir: "./"  # Subir todos los archivos desde la raíz del repositorio
-        dangerous-clean-slate: true  # Borra todos los archivos existentes en el servidor antes de subir los nuevos
+        local-dir: "./"
+        dangerous-clean-slate: true  # Borra todo antes de sincronizar
+        exclude: |
+          .git*
+          node_modules/
+          tmp/
+        log-level: minimal  # Reduce la cantidad de registros para mayor claridad
+
 
 
 
